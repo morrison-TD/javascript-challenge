@@ -1,25 +1,28 @@
-var tableData = data;
-// function to display UFO sightings
-function tableDisplay(ufoSightings) {
+var ufoData = data;
+// display UFO sightings
+function tableDisplay(ufo) {
     var tbody = d3.select("tbody");
-    ufoSightings.forEach((ufoRecord) => {
+    ufo.forEach((ufoRecord) => {
       var row = tbody.append("tr");
       Object.entries(ufoRecord).forEach(([key, value]) => {
         var cell = row.append("td");
-        cell.html(value);
-      });
+        cell.html(value);});
     });
   };
-  // clear the table for new data
+
+
+  // update for new table data returned
   function deleteTbody() {
     d3.select("tbody")
       .selectAll("tr").remove()
       .selectAll("td").remove();
   };
-  // initial display of all UFO sightings
-  console.log(tableData);
-  tableDisplay(tableData);
-  // 'Filter Table' button
+
+  // UFO sightings--#2
+  console.log(ufoData);
+  tableDisplay(ufoData);
+
+  // Control that button baaaaaby!
   var button = d3.select("#filter-btn");
   // filter the database and display
   button.on("click", function(event) {
@@ -27,14 +30,14 @@ function tableDisplay(ufoSightings) {
     deleteTbody();
     var dateInput = d3.select("#datetime").property("value");
         if (dateInput.trim() === "" ) {
-      // display the whole database if the date field has no date
-      var filteredData = tableData;
+      // if/else
+      var filteredData = ufoData;
     } else {
-      // otherwise, display the filtered dataset  
-      var filteredData = tableData.filter(ufoSighting => 
-        ufoSighting.datetime === dateInput.trim());
+      // display dataset  
+      var filteredData = ufoData.filter(ufo => 
+        ufo.datetime === dateInput.trim());
     };
-      // display message if no records found
+      // "No record found"
     if (filteredData.length == 0) {
       d3.select("tbody")
         .append("tr")
@@ -46,8 +49,6 @@ function tableDisplay(ufoSightings) {
     console.log(filteredData);
     tableDisplay(filteredData);
   });
-Collapse
-
 
 
 
